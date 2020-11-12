@@ -82,7 +82,7 @@
             <textarea rows="4" cols="80"
               class="form-control"
               placeholder="Descripción"
-              v-model="model.description">
+              v-model="model.descripcion">
             </textarea>
           </base-input>
         </div>
@@ -91,7 +91,7 @@
       <div class="row">
         <div class="col-md-3 pr-md-1">
           <base-input label="Ciudad"
-            v-model="model.city"
+            v-model="model.ciudad"
             placeholder="Ciudad">
           </base-input>
         </div>
@@ -103,28 +103,28 @@
         </div>
         <div class="col-md-4 pr-md-1">
           <base-input label="Cantidad de estudiantes participando"
-            v-model="model.numEstudiantes"
+            v-model="model.numeroEstudiantes"
             placeholder="número de estudiantes"
             type="number">
           </base-input>
         </div>
         <div class="col-md-3 pr-md-1">
           <base-input label="Cantidad de docentes participando"
-            v-model="model.numDocentes"
+            v-model="model.numeroDocentes"
             placeholder="número de docentes"
             type="number">
           </base-input>
         </div>
         <div class="col-md-4 pr-md-1">
           <base-input label="Cantidad de personas participando"
-            v-model="model.numPersonas"
+            v-model="model.numeroPersonas"
             placeholder="número de personas"
             type="number">
           </base-input>
         </div>
         <div class="col-md-4 pr-md-1">
           <base-input label="Cantidad de personal administrativo"
-            v-model="model.numAdministrativos"
+            v-model="model.numeroPersonasAdministrativo"
             placeholder="número de administrativos"
             type="number">
           </base-input>
@@ -229,9 +229,37 @@ export default {
       this.model.newTipoAct = '';
     },
     registrarActividad() {
-      console.log('responsable', this.tipoResponsable);
-      console.log('activida t', this.tipoActividad);
-      console.log('actividad', this.model);
+      const tipoActividadId = this.tipoActividad;
+      const tipoResponsableId = this.tipoResponsable;
+      const {
+        nombreResponsable,
+        descripcion,
+        ciudad,
+        pais,
+        numeroEstudiantes,
+        numeroDocentes,
+        numeroPersonas,
+        numAdministrativos
+      } = this.model;
+      this.axios.post(`${this.$store.state.api}api/actividad/create`, {
+        tipoActividadId,
+        tipoResponsableId,
+        nombreResponsable,
+        descripcion,
+        ciudad,
+        pais,
+        numeroEstudiantes,
+        numeroDocentes,
+        numeroPersonas,
+        numAdministrativos
+      })
+      .then( (resp) => {
+        const json = resp.data;
+        const { data, status } = json;
+        if (status === true) {
+          this.tiposActividades = data;
+        }
+      });
     }
   }
 };
