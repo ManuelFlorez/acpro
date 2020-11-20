@@ -48,17 +48,17 @@ export default {
     };
   },
   mounted() {
-    this.axios.get(`${this.$store.state.api}api/user/all`).then( (resp) => {
+    this.axios.get(`${this.$store.state.api}api/actividad/all`).then( (resp) => {
       const json = resp.data;
       const { data, status } = json;
       if (status === true) {
         this.table1.data = [];
         data.forEach(element => {
           this.table1.data.push({
-            nombre: element.nombres,
-            email: element.correo,
-            rol: element.rol,
-            estado: element.estado
+            nombre: element.nombre,
+            fecha: element.fecha.split('T')[0],
+            'tipo actividad': element.tipoActividad.nombre,
+            'tipo responsable': element.tipoResponsable.nombre
           });
         });
       }

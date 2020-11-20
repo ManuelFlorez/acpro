@@ -209,7 +209,7 @@
 
       <template slot="footer">
         <!-- <base-button type="primary">Save changes</base-button> -->
-        <base-button type="secondary" class="ml-auto" @click="modals.modal3 = false">Cerrar
+        <base-button type="secondary" class="ml-auto" @click="verActividades()">Cerrar
           </base-button>
         </template>
     </modal>
@@ -259,6 +259,10 @@ export default {
     this.consultarPaquetes();
   },
   methods: {
+    verActividades() {
+      modals.modal3 = false;
+      this.$router.push('/admin/listar_actividad');
+    },
     consultarPaquetes() {
       this.axios.get(`${this.$store.state.api}api/paquete/all`)
       .then( (resp) => {
