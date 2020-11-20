@@ -1,5 +1,45 @@
 <template>
+  <div>
+
   <div class="card">
+    <div class="card-header">
+      <h5 class="title">Paquete de Actividades</h5>
+      <div class="row">
+        <base-input class="col-md-4">
+          <select id="inputState" class="form-control" v-model="paquete">
+            <option>Seleccione...</option>
+            <option v-for="item in paquetes" :key="item.id" :value="item.id">
+              {{item.nombre}}
+            </option>
+          </select>
+        </base-input>
+        <div class="col-md-4">
+          Agregar <a href="#/admin/registrar_actividad" @click="modals.modal2 = true">Nuevo Paquete</a>
+        </div>
+        <modal :show.sync="modals.modal2" :centered="false">
+          <template slot="header">
+            <h5 class="modal-title" id="exampleModalLabel">Registrar Paquete</h5>
+          </template>
+          
+            <div>
+              <label style="color:black">Nombre del Paquete</label>
+              <input label="Ciudad"
+                v-model="model.newPaquete"
+                placeholder="paquete"
+                style="width:100%; border-bottom: black solid; border-top:none; border-left:none; border-right:none;" />
+              
+            </div>
+
+          <template slot="footer">
+            <base-button type="secondary" @click="modals.modal02 = false">Cancelar</base-button>
+            <base-button type="primary" @click="guardarPaquete()">Guardar</base-button>
+          </template>
+        </modal>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" v-if="paquete !== 'Seleccione...'">
     <div class="card-header">
       <h5 class="title">Registro de Actividades</h5>
       <p class="category">
@@ -140,6 +180,8 @@
       </div>
     </div>
   </div>
+
+  </div>
 </template>
 <script>
 import Modal from "../components/Modal.vue"
@@ -161,23 +203,38 @@ export default {
       model: {
         description: '',
         newTipoAct: '',
-        newTipoRes: ''
+        newTipoRes: '',
+        newPaquete: ''
       },
       modals: {
         modal0: false,
-        modal1: false
+        modal1: false,
+        modal2: false
       },
       tiposActividades: [],
       tiposResponsables: [],
+      paquetes: [],
       tipoActividad: 'Seleccione...',
       tipoResponsable: 'Seleccione...',
+      paquete: 'Seleccione...'
     }
   },
   mounted() {
     this.consultarTiposDeActividades();
     this.consultarTiposDeResponsables();
+    this.consultarPaquetes();
   },
   methods: {
+    consultarPaquetes() {
+      this.axios.get(`${this.$store.state.api}api/paquete/all`)
+      .then( (resp) => {
+        const json = resp.data;
+        const { data, status } = json;
+        if (status === true) {
+          this.paquetes = data;
+        }
+      });
+    },
     consultarTiposDeResponsables() {
       this.axios.get(`${this.$store.state.api}api/tipoResponsable/all`)
       .then( (resp) => {
@@ -197,6 +254,21 @@ export default {
           this.tiposActividades = data;
         }
       });
+    },
+    guardarPaquete() {
+      const paquete = this.model.newPaquete;
+      if (paquete) {
+        this.axios.post(`${this.$store.state.api}api/paquete/create/${paquete}`)
+        .then( (resp) => {
+          const json = resp.data;
+          const { data, status } = json;
+          if (status === true) {
+            this.paquetes = data;
+          }
+        });
+      }
+      this.modals.modal2 = false;
+      this.model.newPaquete = '';
     },
     guardarTipoResponsable() {
       const responsable = this.model.newTipoRes;
