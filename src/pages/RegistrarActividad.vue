@@ -31,7 +31,7 @@
             </div>
 
           <template slot="footer">
-            <base-button type="secondary" @click="modals.modal02 = false">Cancelar</base-button>
+            <base-button type="secondary" @click="modals.modal2 = false">Cancelar</base-button>
             <base-button type="primary" @click="guardarPaquete()">Guardar</base-button>
           </template>
         </modal>
@@ -116,6 +116,27 @@
       </div>
 
       <div class="row">
+        <div class="col-md-11">
+          <base-input label="Nombre de Actividad"
+            placeholder="Nombre"
+            v-model="model.nombre"
+            type="text">
+          </base-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <base-input label="Fecha"
+            placeholder="Fecha del evento"
+            v-model="model.fecha"
+            type="date">
+          </base-input>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
         <div class="col-md-12">
           <base-input>
             <label>Descripción de la actividad</label>
@@ -181,6 +202,18 @@
     </div>
   </div>
 
+  <modal :show.sync="modals.modal3">
+      <h6 slot="header" class="modal-title" id="modal-title-default">Exito</h6>
+
+      <p>{{ modals.msg }}</p>
+
+      <template slot="footer">
+        <!-- <base-button type="primary">Save changes</base-button> -->
+        <base-button type="secondary" class="ml-auto" @click="modals.modal3 = false">Cerrar
+          </base-button>
+        </template>
+    </modal>
+
   </div>
 </template>
 <script>
@@ -209,7 +242,8 @@ export default {
       modals: {
         modal0: false,
         modal1: false,
-        modal2: false
+        modal2: false,
+        modal3: false
       },
       tiposActividades: [],
       tiposResponsables: [],
@@ -301,8 +335,12 @@ export default {
       this.model.newTipoAct = '';
     },
     registrarActividad() {
+      let user = JSON.parse(localStorage.getItem("user"));
+
+      const usuarioId = user.id;
       const tipoActividadId = this.tipoActividad;
       const tipoResponsableId = this.tipoResponsable;
+      const paqueteId = this.paquete;
       const {
         nombreResponsable,
         descripcion,
@@ -311,9 +349,13 @@ export default {
         numeroEstudiantes,
         numeroDocentes,
         numeroPersonas,
-        numAdministrativos
+        numeroPersonasAdministrativo,
+        fecha,
+        nombre
       } = this.model;
       this.axios.post(`${this.$store.state.api}api/actividad/create`, {
+        usuarioId,
+        paqueteId,
         tipoActividadId,
         tipoResponsableId,
         nombreResponsable,
@@ -323,13 +365,16 @@ export default {
         numeroEstudiantes,
         numeroDocentes,
         numeroPersonas,
-        numAdministrativos
+        numeroPersonasAdministrativo,
+        fecha,
+        nombre
       })
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;
         if (status === true) {
-          this.tiposActividades = data;
+          this.modals.modal3 = true;
+          this.modals.msg = data;
         }
       });
     }

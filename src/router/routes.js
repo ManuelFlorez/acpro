@@ -16,6 +16,7 @@ const Login = () => import(/* webpackChunkName: "common" */ "@/pages/Login.vue")
 const DashboardAdmin = () => import(/* webpackChunkName: "common" */ "@/pages/DashboardAdmin.vue");
 const NuevoUsuario = () => import("@/pages/NuevoUsuario.vue");
 const RegistrarActividad = () => import("@/pages/RegistrarActividad.vue");
+const ListarActividad = () => import("@/pages/ListarActividad.vue");
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
         path: 'registrar_actividad',
         name: 'registrar_actividad',
         component: RegistrarActividad
+      },
+      {
+        path: 'listar_actividad',
+        name: 'registrar_actividad',
+        component: ListarActividad
       }
     ]
   },

@@ -7,6 +7,7 @@
         <sidebar-link to="/admin/lista-usuarios" :name="$t('sidebar.tableList')" icon="tim-icons icon-puzzle-10"/>
         <sidebar-link to="/admin/nuevo_usuario" :name="$t('sidebar.icons')" icon="tim-icons icon-atom"/>
         <sidebar-link to="/admin/profile" :name="$t('sidebar.userProfile')" icon="tim-icons icon-single-02"/>
+        <sidebar-link to="/admin/listar_actividad" :name="$t('sidebar.typography')" icon="tim-icons icon-align-center"/>
       </template>
     </side-bar>
     <div class="main-panel">
