@@ -9,7 +9,7 @@
         class="border-0 mb-0"
       >
         <div style="background-color: #eee; padding: 20px; margin: 20px; border-radius:10px;">
-          <img src="/img/logo_vertical_ingsistemas_ht180.png" alt="ing sistemas">
+          <img :src="image" alt="ing sistemas">
           Actividades Programa Ingeniería de sistemas
         </div>
         <base-alert type="danger" v-show="showAlerError">
@@ -43,6 +43,8 @@
 
 <script>
 import BaseAlert from "../components/BaseAlert"
+import image from "../../public/img/logo_vertical_ingsistemas_ht180.png";
+
 export default {
   components: {
     BaseAlert
@@ -53,7 +55,8 @@ export default {
       password: '',
       recordar: false,
       showAlerError: false,
-      msgError: ""
+      msgError: "",
+      image: image
     }
   },
   methods: {
@@ -62,7 +65,7 @@ export default {
         this.showAlerError = true;
         return;
       }
-      this.axios.post(`${this.$store.state.api}api/login` , {
+      this.axios.post(`${this.$store.state.api}/login` , {
         email: this.email,
         password: this.password,
         rol: ""
@@ -74,7 +77,6 @@ export default {
           this.showAlerError = false;
           this.msgError = data;
           const token = data
-          console.log(data);
           this.consultarPerfil(this.email);
           this.$router.push('/admin/dasboard')
         } else {
@@ -83,7 +85,7 @@ export default {
       });
     },
     consultarPerfil(correo) {
-      this.axios.get(`${this.$store.state.api}api/user/email/${correo}`)
+      this.axios.get(`${this.$store.state.api}/user/email/${correo}`)
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;

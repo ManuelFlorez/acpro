@@ -53,7 +53,7 @@ const routes = [
       },
       {
         path: 'listar_actividad',
-        name: 'registrar_actividad',
+        name: 'listar_actividad',
         component: ListarActividad
       }
     ]

@@ -53,7 +53,7 @@
         this.model.about = user.descripcion;
       },
       perfil(correo) {
-        this.axios.get(`${this.$store.state.api}api/user/email/${correo}`)
+        this.axios.get(`${this.$store.state.api}/user/email/${correo}`)
         .then( (resp) => {
           const json = resp.data;
           const { data, status } = json;

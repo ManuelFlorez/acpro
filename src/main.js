@@ -36,7 +36,8 @@ Vue.use(RouterPrefetch);
 const store = new Vuex.Store({
   state: {
     count: 0,
-    api: 'http://localhost:8080/'
+    //api: 'http://localhost:8080/',
+    api: 'http://acprobackend.ingsistemasufps.co/'
   },
   mutations: {
     increment (state) {

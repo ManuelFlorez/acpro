@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted() {
-    this.axios.get(`${this.$store.state.api}api/actividad/all`).then( (resp) => {
+    this.axios.get(`${this.$store.state.api}/actividad/all`).then( (resp) => {
       const json = resp.data;
       const { data, status } = json;
       if (status === true) {

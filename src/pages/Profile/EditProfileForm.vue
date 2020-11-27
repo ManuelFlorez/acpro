@@ -119,7 +119,7 @@ import { Modal } from "@/components";
     },
     methods: {
       imprimeModel() {
-        this.axios.post(`${this.$store.state.api}api/user/editarPerfil`, {
+        this.axios.post(`${this.$store.state.api}/user/editarPerfil`, {
           apellidos: this.model.lastName,
           ciudad: this.model.city,
           descripcion: this.model.about,

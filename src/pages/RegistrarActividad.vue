@@ -264,7 +264,7 @@ export default {
       this.$router.push('/admin/listar_actividad');
     },
     consultarPaquetes() {
-      this.axios.get(`${this.$store.state.api}api/paquete/all`)
+      this.axios.get(`${this.$store.state.api}/paquete/all`)
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;
@@ -274,7 +274,7 @@ export default {
       });
     },
     consultarTiposDeResponsables() {
-      this.axios.get(`${this.$store.state.api}api/tipoResponsable/all`)
+      this.axios.get(`${this.$store.state.api}/tipoResponsable/all`)
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;
@@ -284,7 +284,7 @@ export default {
       });
     },
     consultarTiposDeActividades() {
-      this.axios.get(`${this.$store.state.api}api/tipoActividad/all`)
+      this.axios.get(`${this.$store.state.api}/tipoActividad/all`)
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;
@@ -296,7 +296,7 @@ export default {
     guardarPaquete() {
       const paquete = this.model.newPaquete;
       if (paquete) {
-        this.axios.post(`${this.$store.state.api}api/paquete/create/${paquete}`)
+        this.axios.post(`${this.$store.state.api}/paquete/create/${paquete}`)
         .then( (resp) => {
           const json = resp.data;
           const { data, status } = json;
@@ -311,7 +311,7 @@ export default {
     guardarTipoResponsable() {
       const responsable = this.model.newTipoRes;
       if (responsable) {
-        this.axios.post(`${this.$store.state.api}api/tipoResponsable/create/${responsable}`)
+        this.axios.post(`${this.$store.state.api}/tipoResponsable/create/${responsable}`)
         .then( (resp) => {
           const json = resp.data;
           const { data, status } = json;
@@ -326,7 +326,7 @@ export default {
     guardarTipoActividad() {
       const actividad = this.model.newTipoAct;
       if (actividad) {
-        this.axios.post(`${this.$store.state.api}api/tipoActividad/create/${actividad}`)
+        this.axios.post(`${this.$store.state.api}/tipoActividad/create/${actividad}`)
         .then( (resp) => {
           const json = resp.data;
           const { data, status } = json;
@@ -357,7 +357,7 @@ export default {
         fecha,
         nombre
       } = this.model;
-      this.axios.post(`${this.$store.state.api}api/actividad/create`, {
+      this.axios.post(`${this.$store.state.api}/actividad/create`, {
         usuarioId,
         paqueteId,
         tipoActividadId,

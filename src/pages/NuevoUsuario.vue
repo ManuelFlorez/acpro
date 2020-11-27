@@ -18,7 +18,7 @@
       <modal :show.sync="modals.modal1">
             <h6 slot="header" class="modal-title" id="modal-title-default">Exito</h6>
 
-            <p>Se registro el usuario</p>
+            <p>Operación con EXITO</p>
 
             <template slot="footer">
                 <!-- <base-button type="primary">Save changes</base-button> -->
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     async findUser(correo, callback) {
-      await this.axios.get(`${this.$store.state.api}api/user/email/${correo}`)
+      await this.axios.get(`${this.$store.state.api}/user/email/${correo}`)
       .then( (resp) => {
         const json = resp.data;
         const { data, status } = json;
@@ -144,7 +144,7 @@ export default {
         //  this.errorExisteEmail = true;
         //  return;
         //}     
-        this.axios.post(`${this.$store.state.api}api/user/registro`, {
+        this.axios.post(`${this.$store.state.api}/user/registro`, {
           correo, clave, tipoUsuario
         }).then( (resp) => {
           this.errorReditro = false;
@@ -174,7 +174,7 @@ export default {
       this.clearError();
       const { email, password } = this.dataRecover;
       if(email && password) {
-        this.axios.post(`${this.$store.state.api}api/user/recoverpassword`, {
+        this.axios.post(`${this.$store.state.api}/user/recoverpassword`, {
           correo: email, clave: password
         }).then( (resp) => {
           const json = resp.data;
