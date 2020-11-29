@@ -42,6 +42,10 @@
         </card>
       </div>
     </div>
+
+    <div>
+      <a :href="`${this.$store.state.api}/reporte/downloaReport`" download>Descarga Reporte Excel</a>
+    </div>
   
   </div>
 </template>
@@ -174,7 +178,7 @@
             pointRadius: 4,
             data: this.bigLineChart.allData[index]
           }],
-          labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+          labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
         }
         this.$refs.bigChart.updateGradients(chartData);
         this.bigLineChart.chartData = chartData;
