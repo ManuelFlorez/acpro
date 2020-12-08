@@ -11,7 +11,7 @@
                 <th>Fecha</th>
                 <th>Tipo Actividad</th>
                 <th>Tipo Responsable</th>
-                <th class="text-center">Opcones</th>
+                <th class="text-center">Opciones</th>
               </template>
               <template slot-scope="{row}">
                 <td>{{row.nombre}}</td>
@@ -19,10 +19,12 @@
                 <td>{{row["tipo actividad"]}}</td>
                 <td>{{row["tipo responsable"]}}</td>
                 <td class="td-actions text-right">
+                  <!--
                   <base-button @click="editar(row.id)" title="Editar" type="success" size="sm" icon>
                     <i class="tim-icons icon-settings"></i>
                   </base-button>
                   <span> - </span>
+                  -->
                   <base-button @click="eliminar(row.id)" title="Eliminar" type="danger" size="sm" icon>
                     <i class="tim-icons icon-simple-remove"></i>
                   </base-button>
