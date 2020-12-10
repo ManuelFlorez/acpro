@@ -7,9 +7,10 @@
           <template slot="header">
             <div class="row">
               <div class="col-sm-6" :class="isRTL ? 'text-right' : 'text-left'">
-                <h5 class="card-category">{{$t('dashboard.totalShipments')}}</h5>
+                <h5 class="card-category">{{$t('dashboard.totalShipments')}} {{numeroActividades}}</h5>
                 <h2 class="card-title">{{$t('dashboard.performance')}}</h2>
               </div>
+              <!--
               <div class="col-sm-6">
                 <div class="btn-group btn-group-toggle"
                      :class="isRTL ? 'float-left' : 'float-right'"
@@ -27,6 +28,7 @@
                   </label>
                 </div>
               </div>
+              -->
             </div>
           </template>
           <div class="chart-area">
@@ -66,6 +68,8 @@
     },
     data() {
       return {
+        numeroActividades: 0,
+        isDocente: false,
         bigLineChart: {
           allData: [
             [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
@@ -161,6 +165,22 @@
       }
     },
     methods: {
+      cargarActividades() {
+        //this.bigLineChart.allData[0] = [0,50,0,30,0,10,0,0,0,0,5,10];
+        this.axios.get(`${this.$store.state.api}/reporte/reportGrafi`)
+          .then( (resp) => {
+          const json = resp.data;
+          const { data, status } = json;
+          if (status === true) {
+            this.bigLineChart.allData[0] = data;
+
+            data.forEach(element => {
+              this.numeroActividades += element;
+            });
+            this.initBigChart(0)
+          }
+        });
+      },
       initBigChart(index) {
         let chartData = {
           datasets: [{
@@ -192,6 +212,7 @@
         this.$rtl.enableRTL();
       }
       this.initBigChart(0);
+      this.cargarActividades();
     },
     beforeDestroy() {
       if (this.$rtl.isRTL) {

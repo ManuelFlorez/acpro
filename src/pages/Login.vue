@@ -78,7 +78,6 @@ export default {
           this.msgError = data;
           const token = data
           this.consultarPerfil(this.email);
-          this.$router.push('/admin/dasboard')
         } else {
           this.showAlerError = true;
         }
@@ -91,6 +90,11 @@ export default {
         const { data, status } = json;
         if (status === true) {
           localStorage.setItem("user", JSON.stringify(data));
+          if (data.rol === "docente") {
+            this.$router.push('/docente/profile');
+          } else {
+            this.$router.push('/admin/dasboard');
+          }
         }
       });
     }

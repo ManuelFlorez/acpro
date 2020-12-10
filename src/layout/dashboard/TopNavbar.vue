@@ -44,6 +44,7 @@
                    :show-close="true">
               <input slot="header" v-model="searchQuery" type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
             </modal>
+            <!--
             <base-dropdown tag="li"
                            :menu-on-right="!$rtl.isRTL"
                            title-tag="a" class="nav-item">
@@ -70,6 +71,7 @@
                 <a href="#" class="nav-item dropdown-item">Another one</a>
               </li>
             </base-dropdown>
+            -->
             <base-dropdown tag="li"
                            :menu-on-right="!$rtl.isRTL"
                            title-tag="a"
@@ -81,9 +83,10 @@
                 </div>
                 <b class="caret d-none d-lg-block d-xl-block"></b>
                 <p class="d-lg-none">
-                  Log out
+                  Opción
                 </p>
               </a>
+              <!--
               <li class="nav-link">
                 <a href="#" class="nav-item dropdown-item">Profile</a>
               </li>
@@ -91,8 +94,9 @@
                 <a href="#" class="nav-item dropdown-item">Settings</a>
               </li>
               <div class="dropdown-divider"></div>
+              -->
               <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Log out</a>
+                <a href="#" @click="salir()" class="nav-item dropdown-item">Salir</a>
               </li>
             </base-dropdown>
           </ul>
@@ -129,6 +133,10 @@
       };
     },
     methods: {
+      salir() {
+        this.$router.push('/');
+        localStorage.setItem("user", undefined);
+      },
       capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       },

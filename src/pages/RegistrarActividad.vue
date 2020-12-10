@@ -377,6 +377,11 @@ export default {
         const json = resp.data;
         const { data, status } = json;
         if (status === true) {
+          if (user.rol === "docente") {
+            this.$router.push('/docente/listar_actividad');
+          } else {
+            this.$router.push('/admin/listar_actividad');
+          }
           this.modals.modal3 = true;
           this.modals.msg = data;
         }
